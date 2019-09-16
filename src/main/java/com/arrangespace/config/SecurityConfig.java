@@ -76,7 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .anyRequest()
                         .authenticated();
-                
         // Add our custom Token based authentication filter
         //http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -90,7 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/configuration/**")//
 				.antMatchers("/webjars/**")//
 				.antMatchers("/public")
-
 				// Un-secure H2 Database (for testing purposes, H2 console
 				// shouldn't be unprotected in production)
 				.and().ignoring().antMatchers("/h2-console/**/**");
