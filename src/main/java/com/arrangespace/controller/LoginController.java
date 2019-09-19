@@ -27,11 +27,16 @@ import java.security.GeneralSecurityException;
 @RequestMapping("")
 public class LoginController {
 
-	@Autowired
 	private UserService userService;
 
-	@Autowired
 	private TokenProvider tokenProvider;
+
+	@Autowired
+	public LoginController(UserService userService, TokenProvider tokenProvider) {
+		this.userService = userService;
+		this.tokenProvider = tokenProvider;
+
+	}
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) throws GeneralSecurityException, IOException {

@@ -12,8 +12,12 @@ import com.arrangespace.model.User;
 @Service
 public class UserServiceImpl implements UserService {
 
+	private UserDao dao;
+
 	@Autowired
-	UserDao dao;
+	public UserServiceImpl(UserDao dao) {
+		this.dao = dao;
+	}
 
 	@Override
 	public Collection<User> findAll() {
@@ -54,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	public boolean isExists(String googleId) {
 		Optional<User> opt = dao.findByGoogleId(googleId);
 		if (opt.isPresent()) {
-			System.out.println("user-exists:"+opt.get());
+			System.out.println("user-exists:" + opt.get());
 			return true;
 		}
 		return false;
