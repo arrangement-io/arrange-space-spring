@@ -1,5 +1,6 @@
 package com.arrangespace.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,88 +12,53 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.arrangespace.security.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
-        prePostEnabled = true
-)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/*
-	 * @Autowired private CustomUserDetailsService customUserDetailsService;
-	 * 
-	 * @Bean public TokenAuthenticationFilter tokenAuthenticationFilter() { return
-	 * new TokenAuthenticationFilter(); }
-	 */
-    
+	private CustomUserDetailsService customUserDetailsService;
+	
+	@Autowired
+	public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+		this.customUserDetailsService = customUserDetailsService;
+	}
 
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		/*
-		 * authenticationManagerBuilder .userDetailsService(customUserDetailsService)
-		 * .passwordEncoder(passwordEncoder());
-		 */
-    }
+	@Bean
+	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+		return new TokenAuthenticationFilter();
+	}
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Override
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(customUserDetailsService);
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                    .and()
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                .csrf()
-                    .disable()
-                .formLogin()
-                    .disable()
-                .httpBasic()
-                    .disable()
-                .exceptionHandling()
-                    .and()
-                .authorizeRequests()
-                    .antMatchers("/",
-                        "/error",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js")
-                         
-                        .permitAll()
-                    .antMatchers("/login/**")
-                        .permitAll()
-                    .anyRequest()
-                        .authenticated();
-        // Add our custom Token based authentication filter
-        //http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-    
-    @Override
+	@Bean(BeanIds.AUTHENTICATION_MANAGER)
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf()
+				.disable().formLogin().disable().httpBasic().disable().exceptionHandling()
+				.authenticationEntryPoint(new RestAuthenticationEntryPoint()).and().authorizeRequests()
+				.antMatchers("/login/**").permitAll().anyRequest().permitAll();
+
+		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// Allow swagger to be accessed without authentication
-		web.ignoring().antMatchers("/v2/api-docs")//
-				.antMatchers("/swagger-resources/**")//
-				.antMatchers("/swagger-ui.html")//
-				.antMatchers("/configuration/**")//
-				.antMatchers("/webjars/**")//
-				.antMatchers("/public")
-				// Un-secure H2 Database (for testing purposes, H2 console
-				// shouldn't be unprotected in production)
-				.and().ignoring().antMatchers("/h2-console/**/**");
-		;
+		web.ignoring().antMatchers("/v2/api-docs").antMatchers("/swagger-resources/**").antMatchers("/swagger-ui.html")
+				.antMatchers("/configuration/**").antMatchers("/webjars/**").antMatchers("/public").and().ignoring()
+				.antMatchers("/h2-console/**/**");
 	}
 
 }
