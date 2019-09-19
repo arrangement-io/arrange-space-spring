@@ -21,6 +21,8 @@ import com.arrangespace.security.*;
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private CustomUserDetailsService customUserDetailsService;
+	
 	@Autowired
 	public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
 		this.customUserDetailsService = customUserDetailsService;
