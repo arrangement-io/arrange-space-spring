@@ -22,7 +22,9 @@ import com.arrangespace.security.*;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
+	public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+		this.customUserDetailsService = customUserDetailsService;
+	}
 
 	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
