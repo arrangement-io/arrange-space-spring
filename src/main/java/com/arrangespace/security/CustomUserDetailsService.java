@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.arrangespace.dao.UserDao;
 import com.arrangespace.exception.ResourceNotFoundException;
@@ -14,11 +13,14 @@ import com.arrangespace.model.User;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+	private UserDao userDao;
+
 	@Autowired
-	UserDao userDao;
+	public CustomUserDetailsService(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	@Override
-	@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		User user = userDao.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
@@ -26,7 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return UserPrincipal.create(user);
 	}
 
-	@Transactional
 	public UserDetails loadUserByGoogleId(String id) {
 		User user = userDao.findByGoogleId(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Google User", "id", id));
