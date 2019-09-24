@@ -17,7 +17,7 @@ Setup following prerequisite software:
     
 ### Database configuration in Mongo: ###
 ```
-create database: arrangespace_db
+create database: arrangement_db
 ```
 
 ### Deployment instructions: ###

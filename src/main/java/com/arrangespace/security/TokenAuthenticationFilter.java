@@ -18,8 +18,15 @@ import java.io.IOException;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
-	@Autowired
 	private TokenProvider tokenProvider;
+
+	public TokenAuthenticationFilter() {
+	}
+
+	@Autowired
+	public TokenAuthenticationFilter(TokenProvider tokenProvider) {
+		this.tokenProvider = tokenProvider;
+	}
 
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
