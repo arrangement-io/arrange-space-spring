@@ -15,7 +15,7 @@ import lombok.Setter;
 public class User {
 
 	@Id
-	private String id;
+	private String _id;
 	@Indexed(unique = true)
 	private String googleId;
 	private String email;

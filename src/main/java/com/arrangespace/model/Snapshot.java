@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Snapshot {
 
 	@Id
-	private String id;
+	private String _id;
 	private String name;
 
 }
