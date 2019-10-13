@@ -1,5 +1,9 @@
 package com.arrangespace.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,13 +19,13 @@ public class Arrangement {
 
 	@Id
 	private String _id;
-	private Container containers;
+	private Map<String, String> containers;
 	private boolean is_deleted;
-	private Item items;
+	private Map<String, String> items;
 	private String modified_timestamp;
 	private String name;
 	private String owner;
-	private Snapshot [] snapshots;
+	private List<Snapshot> snapshots = new ArrayList<>();
 	private String timestamp;
 	private String user;
 	private User [] users;
