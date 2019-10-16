@@ -19,13 +19,13 @@ public class Arrangement {
 
 	@Id
 	private String _id;
-	private Map<String, String> containers;
+	private Map<String, Container> containers;
 	private boolean is_deleted;
-	private Map<String, String> items;
+	private Map<String, Item> items;
 	private String modified_timestamp;
 	private String name;
 	private String owner;
-	private List<Snapshot> snapshots = new ArrayList<>();
+	private List<Snapshot> snapshots = new ArrayList<>(); 
 	private String timestamp;
 	private String user;
 	private User [] users;
