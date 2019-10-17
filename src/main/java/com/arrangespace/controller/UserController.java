@@ -25,8 +25,12 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping(value = "/users")
 public class UserController {
 
-	@Autowired
 	private UserService userService;
+
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping("/profile")
 	@PreAuthorize("hasRole('USER')")
