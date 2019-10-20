@@ -22,7 +22,7 @@ import com.arrangespace.security.*;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private CustomUserDetailsService customUserDetailsService;
-	
+
 	@Autowired
 	public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
 		this.customUserDetailsService = customUserDetailsService;

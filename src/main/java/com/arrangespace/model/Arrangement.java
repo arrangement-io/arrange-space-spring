@@ -28,5 +28,5 @@ public class Arrangement {
 	private List<Snapshot> snapshots = new ArrayList<>(); 
 	private String timestamp;
 	private String user;
-	private User [] users;
+	private String [] users;
 }
