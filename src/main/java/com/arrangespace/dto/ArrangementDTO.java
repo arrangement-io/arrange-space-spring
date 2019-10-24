@@ -1,23 +1,22 @@
-package com.arrangespace.model;
+package com.arrangespace.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.arrangespace.model.Container;
+import com.arrangespace.model.Item;
+import com.arrangespace.model.Snapshot;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Document(collection = "arrangement")
 @Getter
 @Setter
 @Data
-public class Arrangement {
+public class ArrangementDTO {
 
-	@Id
 	private String _id;
 	private Map<String, Container> containers;
 	private boolean is_deleted;

@@ -17,5 +17,6 @@ public class Item {
 	private String _id;
 	private String name;
 	private String size;
+	private String notes;
 
 }
