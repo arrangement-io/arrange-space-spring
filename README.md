@@ -1,9 +1,12 @@
 # README #
 
-### What is this repository for? ### 
+## Table of Contents
  
-This is a backend for arrangespace. ...
+This is a backend API for arrange.space 
 
+### Authors and Contributors
+- [Jeff Chiu](https://www.linkedin.com/in/jeffchiu1) - Full Stack
+- [Gideon Chia](https://www.linkedin.com/in/gideon-chia-8573bb30/) - Full Stack
 
 ### How do I get set up? ###
  
