@@ -5,11 +5,10 @@
 This is a backend API for arrange.space 
 
 ### Authors and Contributors
-- [Jeff Chiu](https://www.linkedin.com/in/jeffchiu1) - Full Stack
+- [Jeff Chiu](https://www.linkedin.com/in/jeffchiu2022) - Full Stack
 - [Gideon Chia](https://www.linkedin.com/in/gideon-chia-8573bb30/) - Full Stack
 - [Gabriel Koo] - Full Stack
 - [Nathan Connor] - Full Stack
-- [Phil Tran] - Full Stack
 
 
 ### How do I get set up? ###
